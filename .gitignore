@@ -1,0 +1,6 @@
+.gradle/
+build/
+.idea/workspace.xml
+.sandbox
+out/
+.idea

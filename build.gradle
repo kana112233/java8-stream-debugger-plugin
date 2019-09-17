@@ -1,0 +1,87 @@
+buildscript {
+    ext.kotlin_version = '1.1.51'
+    repositories {
+        mavenCentral()
+        maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+plugins {
+//    id 'ivy-publish'
+    id 'java'
+    // 研究一下这个
+    id 'org.jetbrains.intellij' version '0.4.10'
+//    id "org.jetbrains.intellij" version "0.2.17"
+    id "org.jetbrains.kotlin.jvm" version "1.1.1"
+}
+
+
+repositories {
+    jcenter()
+}
+
+sourceSets {
+    main.kotlin.srcDirs += 'src/main/java'
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+apply plugin: 'idea'
+apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'java'
+apply plugin: "kotlin"
+apply plugin: "org.jetbrains.kotlin.jvm"
+
+group 'org.github.plugin'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    plugins = ['java']
+    version '2019.2.2'
+    pluginName = 'stream-debugger'
+    updateSinceUntilBuild = false
+
+    sandboxDirectory = project.rootDir.canonicalPath + "/.sandbox"
+}
+
+dependencies {
+    compile files("${System.properties['java.home']}/lib/tools.jar")
+}
+
+task psiTest(type: Test, group: 'Verification') {
+    include 'com/intellij/debugger/com.intellij.debugger.streams/chain/*'
+}
+
+task streamExTest(type: Test, group: 'Verification') {
+    include 'com/intellij/debugger/com.intellij.debugger.streams/exec/streamex/*'
+}
+
+task stdLibStreamsTest(type: Test, group: 'Verification') {
+    include 'com/intellij/debugger/com.intellij.debugger.streams/exec/*'
+    exclude 'com/intellij/debugger/com.intellij.debugger.streams/exec/streamex/*'
+}
+
+patchPluginXml {
+    changeNotes """
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>"""
+}
