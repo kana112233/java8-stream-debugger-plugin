@@ -74,6 +74,7 @@ public class EvaluationAwareTraceWindow extends DialogWrapper {
                          JavaDebuggerStreamsIcons.Tab, firstTab, qualifierExpression.getText(), 0);
     myTabContents.add(firstTab);
 
+    //todo: 这个是初始化distinct collect 等Pane的地方
     for (int i = 0, chainLength = chain.length(); i < chainLength; i++) {
       final StreamCall call = chain.getCall(i);
       final MyPlaceholder tab = new MyPlaceholder();
