@@ -103,6 +103,7 @@ public class EvaluationAwareTraceWindow extends DialogWrapper {
     return "#com.intellij.debugger.streams.ui.EvaluationAwareTraceWindow";
   }
 
+  // 这里是渲染tabContents
   public void setTrace(@NotNull ResolvedTracingResult resolvedTrace, @NotNull EvaluationContextImpl context) {
     if (Disposer.isDisposed(myDisposable)) {
       return;

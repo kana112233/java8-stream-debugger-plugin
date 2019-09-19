@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * @author Vitaliy.Bibaev
+ * @author Vitaliy.Bibaev    //TODO: 这个是关键转换
  */
 public class JavaChainTransformerImpl implements ChainTransformer.Java {
   @NotNull
